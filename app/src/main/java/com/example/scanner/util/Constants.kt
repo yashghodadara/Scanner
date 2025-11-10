@@ -1,0 +1,58 @@
+package com.example.scanner.util
+
+object Constants {
+
+    const val PROGRESS = "progress"
+    const val LANGUAGE = "language"
+    const val FROM = "from"
+    const val SPLASH = "splash"
+    const val APP_PREFERENCES = "AppPreferences"
+
+    object Language {
+        const val CODE_ENGLISH = "en"
+        const val CODE_SPANISH = "es"
+        const val CODE_FRENCH = "fr"
+        const val CODE_HINDI = "hi"
+        const val CODE_CHINESE = "zh"
+        const val CODE_ARABIC = "ar"
+        const val CODE_RUSSIAN = "ru"
+        const val CODE_PORTUGUESE = "pt"
+        const val CODE_ITALIAN = "it"
+        const val CODE_GERMAN = "de"
+        const val CODE_JAPANESE = "ja"
+        const val CODE_URDU = "ur"
+        const val CODE_AFRIKAANS = "af"
+        const val CODE_AMHARIC = "am"
+
+        const val ENGLISH = "English"
+        const val SPANISH = "Español"
+        const val FRENCH = "française"
+        const val HINDI = "हिन्दी"
+        const val CHINESE = "中国人"
+        const val ARABIC = "العربية"
+        const val RUSSIAN = "Русский"
+        const val PORTUGUESE = "Português"
+        const val ITALIAN = "Italiano"
+        const val JAPANESE = "日本語"
+        const val GERMAN = "Deutsch"
+        const val URDU = "اردو"
+        const val AFRIKAANS = "Afrikaans"
+        const val AMHARIC = "አማርኛ"
+
+        const val LAN_ENGLISH = "English"
+        const val LAN_SPANISH = "Spanish"
+        const val LAN_FRENCH = "French"
+        const val LAN_HINDI = "Hindi"
+        const val LAN_CHINESE = "Chinese"
+        const val LAN_ARABIC = "Arabic"
+        const val LAN_RUSSIAN = "Russian"
+        const val LAN_PORTUGUESE = "Portuguese"
+        const val LAN_ITALIAN = "Italian"
+        const val LAN_JAPANESE = "Japanese"
+        const val LAN_GERMAN = "German"
+        const val LAN_URDU = "Urdu"
+        const val LAN_AFRIKAANS = "afrikaans"
+        const val LAN_AMHARIC = "amharic"
+
+    }
+}

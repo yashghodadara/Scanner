@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomBottomNavText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/inter_semi_bold</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/CustomBottomNavText</item>
+        <item name="itemTextAppearanceInactive">@style/CustomBottomNavText</item>
+    </style>
+
+
+
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:background="@drawable/bg_language_item"
+    android:id="@+id/llMain"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/_14sdp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgFlag"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_gravity="center"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLanguageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="@color/white"
+        android:text="English"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_16ssp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvLanguageEnglishName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:fontFamily="@font/inter_medium"
+        android:text="(English)"
+        android:textColor="@color/txt_color_grey"
+        android:textSize="@dimen/_12ssp" />
+
+</LinearLayout>
