@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".presentetion.FAQActivity">
+
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_icon_back" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/faq"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSendFeedBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_blue_rounded"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="@dimen/_14sdp"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_icon_email_big" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/still_have_problems"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginStart="8dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/_14sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp"
+                android:backgroundTint="@color/bg_card_color">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llCodeHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_14sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_icon_scan_grey"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/code_can_t_be_read"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            />
+
+                        <ImageView
+                            android:id="@+id/ivCodeArrow"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llCodeDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_14sdp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1_in_order_to_get_accurate_scanning_results_please_make_sure_that_the_code_meets_the_following_characteristics"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txtCodeA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_gravity="center"
+                            android:text="@string/a_rich_contrast_and_not_blurry"
+                            android:layout_marginStart="@dimen/_18sdp"
+                            android:layout_marginEnd="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txtCodeB"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/b_no_light_reflections_or_shadows_on_the_code"
+                            android:layout_marginStart="@dimen/_18sdp"
+                            android:layout_marginEnd="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+
+                        <TextView
+                            android:id="@+id/txtCodeC"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/c_complete_with_no_missing_parts"
+                            android:layout_marginStart="@dimen/_18sdp"
+                            android:layout_marginEnd="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_2_if_you_are_using_a_low_end_phone_scanning_may_be_very_difficult_or_even_impossible_due_to_the_low_camera_quality"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/you_could_try_to_take_a_photo_with_your_camera_app_then_open_our_app_and_tap_scan_from_the_gallery_to_solve_this_problem"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txtCodeThree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/_3_if_you_still_can_t_get_the_result_when_scanning_the_barcode_or_qr_code_please_send_an_email_via_feedback_to_us_we_will_solve_the_problem_for_you_as_soon_as_possible"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_14sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp"
+                android:backgroundTint="@color/bg_card_color">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llWifiHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_14sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_icon_wifi_grey"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/can_t_connect_to_wi_fi"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            />
+
+                        <ImageView
+                            android:id="@+id/ivWifiArrow"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llWifiDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_14sdp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtWifiOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1_make_sure_you_are_within_the_wi_fi_coverage_area_and_the_wi_fi_username_and_password_are_correct"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/if_you_still_can_t_connect_please_ask_the_qr_code_provider_whether_the_password_has_been_changed"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/txtWifiTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/_2_if_the_scan_result_is_displayed_as_text_you_need_to_manually_connect_to_wi_fi_in_your_phone_s_network_settings_based_on_the_wi_fi_name_and_password_provided_in_the_text"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp"
+                android:backgroundTint="@color/bg_card_color">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llProblemHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_14sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_icon_url_grey"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/have_problem_with_the_link_you_get"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            />
+
+                        <ImageView
+                            android:id="@+id/ivProblemArrow"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llProblemDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_14sdp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvProblemOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1_this_app_can_t_change_the_content_of_the_qr_code_so_if_you_can_t_open_this_website_it_is_more_likely_that_there_is_a_problem_with_the_website_itself_unfortunately_there_is_nothing_we_can_do_about_it"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tvProblemTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_2_it_is_also_possible_that_the_creator_of_the_qr_code_entered_the_wrong_link_or_the_qr_code_has_expired_causing_you_to_be_unable_to_open_the_website_if_possible_you_can_try_to_confirm_the_correctness_of_the_qr_code_with_the_creator"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tvProblemThree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/_3_in_particular_some_web_links_need_to_be_opened_under_special_conditions_for_example_they_need_to_be_opened_using_a_certain_app_please_follow_the_instructions_of_the_qr_code_provider"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_14sdp"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp"
+                android:backgroundTint="@color/bg_card_color">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llInfoHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_14sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_icon_need_grey"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/need_more_information"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14ssp"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            />
+
+                        <ImageView
+                            android:id="@+id/ivInfoArrow"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llInfoDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_14sdp"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtInfoOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/there_is_too_much_information_and_we_may_not_be_able_to_provide_the_information_you_want_every_time_you_can_check_for_more_information_through_web_search"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color_grey"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:text="@string/if_web_search_still_can_t_help_you_find_the_information_you_are_looking_for_it_may_be_that_the_code_itself_contains_limited_information_please_understand"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

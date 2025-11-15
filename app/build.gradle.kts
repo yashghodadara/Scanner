@@ -65,4 +65,7 @@ dependencies {
     implementation("com.google.zxing:core:3.5.2")
 
 
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    implementation("com.github.bumptech.glide:glide:4.15.1")
 }

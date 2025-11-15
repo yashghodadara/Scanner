@@ -4,7 +4,13 @@ object Constants {
 
     const val PROGRESS = "progress"
     const val LANGUAGE = "language"
+    const val TIPS_DIALOG = "tipsDialog"
     const val FROM = "from"
+    const val SETTINGS_FRAGMENT = "SettingsFragment"
+    const val SETTINGS = "Settings"
+    const val OPEN_FRAGMENT = "OpenFragment"
+    const val SELECTED_SEARCH_ENGINE = "selectedSearchEngine"
+    const val SEARCH_TEXT = "searchText"
     const val SPLASH = "splash"
     const val APP_PREFERENCES = "AppPreferences"
 

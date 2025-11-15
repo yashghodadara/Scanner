@@ -1,48 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_nav_height">56dp</dimen>
-        <array name="header_text_sizes">
-            <item>18sp</item>
-            <item>19sp</item>
-            <item>20sp</item>
-            <item>21sp</item>
-            <item>22sp</item>
-            <item>23sp</item>
-            <item>24sp</item>
-            <item>25sp</item>
-            <item>26sp</item>
-            <item>27sp</item>
-            <item>28sp</item>
-            <item>29sp</item>
-            <item>30sp</item>
-        </array>
-
+    <dimen name="title_text_size">16dp</dimen>
+    <dimen name="value_text_size">12dp</dimen>
     <array name="text_sizes">
+        <item>10sp</item>
+        <item>11sp</item>
+        <item>12sp</item>
+        <item>13sp</item>
         <item>14sp</item>
         <item>15sp</item>
         <item>16sp</item>
         <item>17sp</item>
         <item>18sp</item>
     </array>
-
-
-    <array name="button_text_sizes">
-        <item>18sp</item>
-        <item>19sp</item>
-        <item>20sp</item>
-        <item>21sp</item>
-        <item>22sp</item>
-        <item>23sp</item>
-
-    </array>
-
-    <array name="appear_text_sizes">
-        <item>12sp</item>
-        <item>13sp</item>
-        <item>14sp</item>
-        <item>15sp</item>
-        <item>16sp</item>
-
-    </array>
-
 </resources>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/bg_color">
+
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_icon_back" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivType"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_icon_url" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:textAlignment="center"
+                android:text="@string/history"
+                android:textColor="@color/white"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:textSize="@dimen/_16ssp" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivFAQ"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_icon_info" />
+
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_below="@+id/llHeader"
+        android:id="@+id/tvQrContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="http://qr.kpmindustries.com/r/fas6concrete"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/bg_qr_content"
+        android:layout_margin="@dimen/_14sdp" />
+
+    <LinearLayout
+        android:id="@+id/llOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvQrContent"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llWebPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivWebPhone"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_icon_web_search"/>
+
+            <TextView
+                android:id="@+id/tvWebPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/web_search"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/txt_color_grey"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSmsContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivSmsContact"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/ic_icon_sms" />
+
+            <TextView
+                android:id="@+id/tvSmsContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_sms"
+                android:textColor="@color/txt_color_grey"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="center"
+                android:singleLine="true"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivEmail"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/ic_icon_email" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_email"
+                android:textColor="@color/txt_color_grey"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="center"
+                android:singleLine="true"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llCopy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivCopy"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/ic_icon_copy" />
+
+            <TextView
+                android:id="@+id/tvCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/copy"
+                android:textColor="@color/txt_color_grey"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="center"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llShare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/ic_icon_share" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share"
+                android:textColor="@color/txt_color_grey"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="center"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_below="@+id/llOptions"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_14sdp"
+        app:strokeColor="@color/bg_card_color">
+
+        <ImageView
+            android:id="@+id/ivCapturePhoto"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFeedback"
+        android:layout_below="@+id/cvFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feedback_or_suggestion"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/txt_color_grey"
+        android:fontFamily="@font/inter_semi_bold"
+        android:gravity="center" />
+
+
+</RelativeLayout>

@@ -11,6 +11,21 @@
         <item name="itemTextAppearanceInactive">@style/CustomBottomNavText</item>
     </style>
 
+    <style name="ProblemButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_problem_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:fontFamily">@font/inter_semi_bold</item>
+    </style>
+
+    <style name="CustomPopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/bg_popup_menu</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 
 </resources>
