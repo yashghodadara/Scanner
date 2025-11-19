@@ -202,9 +202,6 @@ class FeedbackActivity : BaseActivity(), View.OnClickListener {
             e.printStackTrace()
         }
     }
-
-
-
     private fun buildEmailBody(): String {
         val problemsText = if (selectedProblems.isNotEmpty()) {
             selectedProblems.joinToString(", ")
