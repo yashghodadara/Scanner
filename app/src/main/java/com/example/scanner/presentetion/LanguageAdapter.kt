@@ -44,6 +44,8 @@ class LanguageAdapter(
         val previous = selectedCode
         if (isSelected) {
             holder.tvEnglishName.setTextColor(Color.parseColor("#FFFFFF"))
+        }else{
+            holder.tvEnglishName.setTextColor(Color.parseColor("#7588A2"))
         }
 
         holder.itemView.setOnClickListener {

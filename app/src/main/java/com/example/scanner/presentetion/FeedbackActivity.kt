@@ -117,7 +117,7 @@ class FeedbackActivity : BaseActivity(), View.OnClickListener {
         } else {
             binding.btnSubmit.setBackgroundResource(R.drawable.bg_unsubmit_button)
             binding.btnSubmit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.txt_color_grey))
-            binding.btnSubmit.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.btnSubmit.setTextColor(ContextCompat.getColor(this, R.color.off_white))
         }
     }
 
@@ -184,26 +184,25 @@ class FeedbackActivity : BaseActivity(), View.OnClickListener {
 
         val emailIntent = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
             type = "message/rfc822"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("yash12@gmail.com"))
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("vinodjavia1963@gmail.com"))
             putExtra(Intent.EXTRA_SUBJECT, "Feedback - ${selectedProblems.joinToString(", ")}")
-
-            val emailBody = buildEmailBody()
-            putExtra(Intent.EXTRA_TEXT, emailBody)
+            putExtra(Intent.EXTRA_TEXT, buildEmailBody())
 
             if (selectedImages.isNotEmpty()) {
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(selectedImages))
             }
+
+            setPackage("com.google.android.gm")
         }
 
         try {
-            startActivity(Intent.createChooser(emailIntent, "Send feedback via..."))
-        } catch (_: ActivityNotFoundException) {
-            Toast.makeText(this, "No email app found", Toast.LENGTH_SHORT).show()
+            startActivity(emailIntent)
         } catch (e: Exception) {
-            Toast.makeText(this, "Error sending email", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Gmail not installed", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
     }
+
 
 
     private fun buildEmailBody(): String {

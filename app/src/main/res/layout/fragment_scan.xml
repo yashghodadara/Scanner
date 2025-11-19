@@ -17,9 +17,10 @@
 
     <FrameLayout
         android:id="@+id/scanArea"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:layout_gravity="center">
 
         <View
@@ -85,11 +86,11 @@
 
     <LinearLayout
         android:id="@+id/zoomContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scanArea"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:orientation="horizontal">
 
         <ImageView
@@ -126,17 +127,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/zoomContainer"
         android:layout_centerHorizontal="true"
-
         android:background="@drawable/bg_action_bar"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8sdp">
+        android:layout_marginTop="@dimen/_16sdp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/flashlightButton"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_4sdp"
             android:gravity="center"
+            android:layout_marginVertical="@dimen/_4sdp"
             android:orientation="vertical">
 
             <ImageView
@@ -144,6 +145,14 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/ic_flashlight" />
+
+            <TextView
+                android:id="@+id/tvFlash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flashlight"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_medium"/>
 
         </LinearLayout>
 

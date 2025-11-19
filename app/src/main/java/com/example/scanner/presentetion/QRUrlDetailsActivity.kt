@@ -61,10 +61,8 @@ class QRUrlDetailsActivity : BaseActivity(), View.OnClickListener {
                 binding.tvQrContent.text = url
                 binding.tvQrContent.setTextColor(ContextCompat.getColor(this, R.color.txt_color_blue))
                 binding.tvQrContent.setOnClickListener {
-                    val intent = Intent(
-                        Intent.ACTION_VIEW,
-                        "https://www.google.com/search?q=${Uri.encode(binding.tvQrContent.text.toString())}".toUri()
-                    )
+                    intent = Intent(this, WebSearchActivity::class.java)
+                    intent.putExtra(Constants.SEARCH_TEXT, binding.tvQrContent.text.toString())
                     startActivity(intent)
                 }
                 binding.tvType.text = getString(R.string.url)

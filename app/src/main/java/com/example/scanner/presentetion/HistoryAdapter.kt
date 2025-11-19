@@ -38,7 +38,7 @@ class HistoryAdapter(
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val item = list[position]
 
-        holder.tvValue.text = item.value
+        holder.tvValue.text = getDisplayValue(item)
         holder.tvType.text = item.qrType
         holder.tvTime.text = formatTime(item.timestamp)
 
@@ -120,4 +120,47 @@ class HistoryAdapter(
         list.addAll(newList)
         notifyDataSetChanged()
     }
+
+    private fun getDisplayValue(item: QrHistoryItem): String {
+        return when (item.qrType) {
+
+            "Phone" -> {
+                extractAfterColon(item.value)
+            }
+
+            "URL" -> extractAfterColon(item.value)
+
+            "Email" -> extractAfterColon(item.value)
+
+            "Text" -> extractAfterColon(item.value)
+
+            "WiFi" -> {
+                try {
+                    val json = org.json.JSONObject(item.jsonData)
+                    json.optString("ssid", "")
+                } catch (e: Exception) {
+                    extractAfterColon(item.value)
+                }
+            }
+
+            "Contact" -> {
+                try {
+                    val json = org.json.JSONObject(item.jsonData)
+                    json.optString("name", "")
+                } catch (e: Exception) {
+                    extractAfterColon(item.value)
+                }
+            }
+
+            else -> extractAfterColon(item.value)
+        }
+    }
+
+    private fun extractAfterColon(text: String): String {
+        return if (text.contains(":")) {
+            text.substringAfter(":")
+        } else text
+    }
+
+
 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
+import android.graphics.Matrix
 import android.graphics.Rect
 import android.graphics.YuvImage
 import android.graphics.drawable.GradientDrawable
@@ -253,6 +254,8 @@ class ScanFragment : Fragment(), View.OnClickListener {
             .addOnCompleteListener { imageProxy.close() }
     }
 
+
+
     private fun saveBitmapToCache(bitmap: Bitmap): Uri {
         val file = File(requireContext().cacheDir, "qr_preview_${System.currentTimeMillis()}.jpg")
         val out = FileOutputStream(file)
@@ -289,7 +292,27 @@ class ScanFragment : Fragment(), View.OnClickListener {
         val out = ByteArrayOutputStream()
         yuvImage.compressToJpeg(Rect(0, 0, imageProxy.width, imageProxy.height), 90, out)
         val imageBytes = out.toByteArray()
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+        val originalBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+        val rotationDegrees = imageProxy.imageInfo.rotationDegrees
+        return rotateBitmap(originalBitmap, rotationDegrees.toFloat())
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, degrees: Float): Bitmap {
+        if (degrees == 0f) return bitmap
+
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+
+        return Bitmap.createBitmap(
+            bitmap,
+            0, 0,
+            bitmap.width,
+            bitmap.height,
+            matrix,
+            true
+        )
     }
 
     private fun buildHistoryValue(details: Map<String, String>): String {
@@ -518,6 +541,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
             ContextCompat.getColor(context, R.color.white)
 
         binding.btnFlashlight.setColorFilter(iconColor)
+        binding.tvFlash.setTextColor(iconColor)
     }
 
     override fun onDestroy() {

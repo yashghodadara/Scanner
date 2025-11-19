@@ -2,5 +2,9 @@
 <resources>
     <declare-styleable name="ScanOverlayView">
         <attr name="boxSize" format="dimension" />
+        <attr name="boxWidth" format="dimension" />
+        <attr name="boxHeight" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="topMargin" format="dimension" />
     </declare-styleable>
 </resources>

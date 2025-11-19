@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:orientation="vertical"
-    android:id="@+id/main"
     tools:context=".presentetion.FavoriteHistoryActivity">
 
     <LinearLayout
@@ -22,7 +23,6 @@
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/ic_icon_back" />
 
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvType"
             android:layout_width="match_parent"
@@ -36,9 +36,20 @@
 
     </LinearLayout>
 
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_4sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:backgroundTint="@color/bg_card_color">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rlHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp" />
+
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

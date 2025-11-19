@@ -20,6 +20,7 @@ class HistoryFragment : Fragment() {
     lateinit var favoritesHistoryAdapter: FavoritesHistoryAdapter
     val favoriteList = mutableListOf<QrHistoryItem>()
     var list = mutableListOf<QrHistoryItem>()
+    var allList = mutableListOf<QrHistoryItem>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,17 +30,11 @@ class HistoryFragment : Fragment() {
 
          list = db.getAllQrData().toMutableList()
 
-        if (list.isEmpty()){
-            binding.llEmptyView.visibility = View.VISIBLE
-            binding.rlMain.visibility = View.GONE
-            binding.ivDelete.visibility = View.GONE
-        }else{
-            binding.llEmptyView.visibility = View.GONE
-            binding.rlMain.visibility = View.VISIBLE
-            binding.ivDelete.visibility = View.VISIBLE
-        }
+        allList.clear()
+        allList.addAll(list.filter { !it.isFavorite })
 
-        adapter = HistoryAdapter(list) { clickedItem ->
+
+        adapter = HistoryAdapter(allList) { clickedItem ->
             onHistoryItemClick(clickedItem)
         }
 
@@ -75,14 +70,6 @@ class HistoryFragment : Fragment() {
         favoriteList.clear()
         favoriteList.addAll(list.filter { it.isFavorite })
 
-        if (favoriteList.isEmpty()){
-            binding.cvHistoryFavorites.visibility = View.GONE
-            binding.tvFavorites.visibility = View.GONE
-        }else{
-            binding.cvHistoryFavorites.visibility = View.VISIBLE
-            binding.tvFavorites.visibility = View.VISIBLE
-        }
-
         if (favoriteList.size > 3){
             binding.llViewAll.visibility = View.VISIBLE
         }else{
@@ -100,7 +87,7 @@ class HistoryFragment : Fragment() {
             val intent = Intent(requireActivity(), FavoriteHistoryActivity::class.java)
             startActivity(intent)
         }
-
+        updateEmptyState()
         return binding.root
     }
 
@@ -132,23 +119,7 @@ class HistoryFragment : Fragment() {
             favoriteList.removeAll { selected.contains(it.id) }
             favoritesHistoryAdapter.notifyDataSetChanged()
 
-            if (favoriteList.isEmpty()){
-                binding.cvHistoryFavorites.visibility = View.GONE
-                binding.tvFavorites.visibility = View.GONE
-            }else{
-                binding.cvHistoryFavorites.visibility = View.VISIBLE
-                binding.tvFavorites.visibility = View.VISIBLE
-            }
-            if (list.isEmpty()){
-                binding.llEmptyView.visibility = View.VISIBLE
-                binding.rlMain.visibility = View.GONE
-                binding.ivDelete.visibility = View.GONE
-            }else{
-                binding.llEmptyView.visibility = View.GONE
-                binding.rlMain.visibility = View.VISIBLE
-                binding.ivDelete.visibility = View.VISIBLE
-            }
-
+            updateEmptyState()
             binding.allCheck.visibility = View.GONE
             binding.allCheck.isChecked = false
             dialog.dismiss()
@@ -163,6 +134,40 @@ class HistoryFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun updateEmptyState() {
+
+        val hasFavorites = favoriteList.isNotEmpty()
+        val hasUnFavorites = allList.isNotEmpty()
+
+        if (!hasFavorites && !hasUnFavorites) {
+            binding.llEmptyView.visibility = View.VISIBLE
+
+            binding.cvHistoryFavorites.visibility = View.GONE
+            binding.tvFavorites.visibility = View.GONE
+            binding.rlHistory.visibility = View.GONE
+            binding.ivDelete.visibility = View.GONE
+            binding.llViewAll.visibility = View.GONE
+
+        } else {
+            binding.llEmptyView.visibility = View.GONE
+
+            if (hasFavorites) {
+                binding.cvHistoryFavorites.visibility = View.VISIBLE
+                binding.tvFavorites.visibility = View.VISIBLE
+                binding.llViewAll.visibility =
+                    if (favoriteList.size > 3) View.VISIBLE else View.GONE
+            } else {
+                binding.cvHistoryFavorites.visibility = View.GONE
+                binding.tvFavorites.visibility = View.GONE
+                binding.llViewAll.visibility = View.GONE
+            }
+
+            binding.rlHistory.visibility = if (hasUnFavorites) View.VISIBLE else View.GONE
+
+            binding.ivDelete.visibility = if (hasUnFavorites) View.VISIBLE else View.GONE
+        }
     }
 
     private fun onHistoryItemClick(item: QrHistoryItem) {
@@ -241,13 +246,16 @@ class HistoryFragment : Fragment() {
             }
         }
     }
-
     override fun onResume() {
         super.onResume()
 
         val updatedList = db.getAllQrData().toMutableList()
 
-        adapter.updateList(updatedList)
+        list = updatedList
+
+        allList.clear()
+        allList.addAll(updatedList.filter { !it.isFavorite })
+        adapter.updateList(allList.toMutableList())
 
         val updatedFavorites = updatedList.filter { it.isFavorite }
 
@@ -255,22 +263,7 @@ class HistoryFragment : Fragment() {
         favoriteList.addAll(updatedFavorites)
         favoritesHistoryAdapter.notifyDataSetChanged()
 
-        if (favoriteList.isEmpty()) {
-            binding.cvHistoryFavorites.visibility = View.GONE
-            binding.tvFavorites.visibility = View.GONE
-        } else {
-            binding.cvHistoryFavorites.visibility = View.VISIBLE
-            binding.tvFavorites.visibility = View.VISIBLE
-        }
-        if (list.isEmpty()){
-            binding.llEmptyView.visibility = View.VISIBLE
-            binding.rlMain.visibility = View.GONE
-            binding.ivDelete.visibility = View.GONE
-        }else{
-            binding.llEmptyView.visibility = View.GONE
-            binding.rlMain.visibility = View.VISIBLE
-            binding.ivDelete.visibility = View.VISIBLE
-        }
+        updateEmptyState()
         binding.llViewAll.visibility = if (favoriteList.size > 3) View.VISIBLE else View.GONE
     }
 }

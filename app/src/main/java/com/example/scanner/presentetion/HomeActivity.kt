@@ -128,6 +128,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             val bottomSheet = (dialogInterface as BottomSheetDialog)
                 .findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.setBackgroundResource(android.R.color.transparent)
+            val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragment is ScanFragment) fragment.pauseScanning()
         }
         binding.txtOne.text = createStyledAnswer(
             binding.txtOne.context,
@@ -145,6 +147,14 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             pref.setString(Constants.TIPS_DIALOG, "Yes")
             dialog.dismiss()
         }
+
+        dialog.setOnDismissListener {
+            if (currentFragmentTag == "SCAN") {
+                val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+                if (fragment is ScanFragment) fragment.resumeScanning()
+            }
+        }
+
         dialog.show()
     }
 

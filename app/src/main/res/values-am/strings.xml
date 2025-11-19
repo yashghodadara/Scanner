@@ -40,7 +40,6 @@
     <string name="a_rich_contrast_and_not_blurry">ሀ. ሀብታም ኮንትራስት እና አለመጋለጥ።</string>
     <string name="can_t_connect_to_wi_fi">ከዋይፋይ ጋር ማገናኘት አይቻልም?</string>
     <string name="within_the_wi_fi_coverage_area">በዋይፋይ ሽፋን ክልል ውስጥ</string>
-    <string name="_1_make_sure_you_are_withithin_the_wi_fi_coverage_area_and_the_wi_fi_username_and_password_are_correct">1. በዋይፋይ ሽፋን ክልል ውስጥ መሆንዎን እና የዋይፋይ ተጠቃሚ ስም እና የይለፍ ቃል ትክክል መሆኑን ያረጋግጡ።</string>
     <string name="if_you_still_can_t_connect_please_ask_the_qr_code_provider_whether_the_password_has_been_changed">አሁንም ማገናኘት ካልቻሉ፣ እባክዎ የይለፍ ቃሉ መቀየሩን ከ QR ኮድ አቅራቢው ይጠይቁ።</string>
     <string name="_2_if_the_scan_result_is_displayed_as_text_you_need_to_manually_connect_to_wi_fi_in_your_phone_s_network_settings_based_on_the_wi_fi_name_and_password_provided_in_the_text">2. የማሰሺያ ውጤቱ እንደ ጽሑፍ ከተቀመጠ፣ በጽሑፉ ውስጥ በተሰጠው የዋይፋይ ስም እና የይለፍ ቃል መሰረት በስልክዎ ኔትወርክ ቅንብሮች ውስጥ በእጅ ከዋይፋይ ጋር መገናኘት አለብዎት።</string>
     <string name="manually_connect_to_wi_fi">በእጅ ከዋይፋይ ጋር ተገናኝ</string>

@@ -68,6 +68,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_16sdp"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 

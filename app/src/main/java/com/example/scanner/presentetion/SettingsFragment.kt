@@ -275,6 +275,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 requireContext(),
                 if (rating >= 1) R.color.txt_color_blue else R.color.txt_color_grey
             )
+            binding.btnSubmit.setTextColor( ContextCompat.getColorStateList(
+                requireContext(),
+                if (rating >= 1) R.color.white else R.color.off_white
+            ))
         }
 
         for (i in stars.indices) {

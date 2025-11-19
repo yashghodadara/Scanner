@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class QrAllHistoryDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "qr_scanner.db"
-        private const val DATABASE_VERSION = 5
+        private const val DATABASE_VERSION = 6
         const val TABLE_NAME = "qr_history"
         const val COLUMN_ID = "id"
         const val COLUMN_VALUE = "qr_value"
@@ -36,12 +36,8 @@ class QrAllHistoryDatabase(context: Context) : SQLiteOpenHelper(context, DATABAS
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 4) {
-            db.execSQL("ALTER TABLE $TABLE_NAME ADD COLUMN $COLUMN_FAVORITE INTEGER DEFAULT 0")
-        }
-        if (oldVersion < 5) {
-            db.execSQL("ALTER TABLE $TABLE_NAME ADD COLUMN $COLUMN_JSON TEXT")
-        }
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        onCreate(db)
     }
 
     // ✅ Insert QR value with current time
@@ -89,6 +85,7 @@ class QrAllHistoryDatabase(context: Context) : SQLiteOpenHelper(context, DATABAS
         db.close()
         return list
     }
+
 
     fun updateFavoriteStatus(id: Long, isFavorite: Boolean): Boolean {
         val db = writableDatabase

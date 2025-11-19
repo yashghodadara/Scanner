@@ -12,7 +12,10 @@ import android.view.View
 import com.example.scanner.R
 
 class ScanOverlayView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
-    private var boxSize = dpToPx(300f)
+
+    private var boxSize = dpToPx(250f)
+    private val topMargin = dpToPx(200f)  // fixed 100 dp margin from top
+
     private val overlayPaint = Paint().apply {
         color = Color.parseColor("#80000000")
     }
@@ -22,12 +25,11 @@ class ScanOverlayView(context: Context, attrs: AttributeSet?) : View(context, at
     }
 
     init {
-        // IMPORTANT: Required for Android 10 and below
         setLayerType(LAYER_TYPE_SOFTWARE, null)
 
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.ScanOverlayView)
-            boxSize = typedArray.getDimension(R.styleable.ScanOverlayView_boxSize, dpToPx(300f))
+            boxSize = typedArray.getDimension(R.styleable.ScanOverlayView_boxSize, dpToPx(250f))
             typedArray.recycle()
         }
     }
@@ -35,16 +37,16 @@ class ScanOverlayView(context: Context, attrs: AttributeSet?) : View(context, at
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        // dark background
+        // Dark background
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), overlayPaint)
 
-        // center
-        val left = (width - boxSize) / 2
-        val top = (height - boxSize) / 2
+        // Center horizontally ONLY
+        val left = (width - boxSize) / 2f
+        val top = topMargin
         val right = left + boxSize
         val bottom = top + boxSize
 
-        // cut transparent hole
+        // Transparent cut-out
         canvas.drawRoundRect(RectF(left, top, right, bottom), 30f, 30f, clearPaint)
     }
 

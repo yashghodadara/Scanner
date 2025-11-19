@@ -84,6 +84,7 @@
             android:fontFamily="@font/inter_semi_bold"
             android:gravity="center_vertical"
             android:text="@string/favorites"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/_14sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
@@ -140,11 +141,23 @@
 
         </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cvHistoryFavorites"
+            android:backgroundTint="@color/bg_card_color"
+            app:cardCornerRadius="@dimen/_12sdp"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rlHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cvHistoryFavorites"
             android:layout_marginBottom="@dimen/_4sdp" />
+
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </LinearLayout>

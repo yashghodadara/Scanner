@@ -60,6 +60,5 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
 
-
     implementation("com.github.bumptech.glide:glide:4.15.1")
 }
