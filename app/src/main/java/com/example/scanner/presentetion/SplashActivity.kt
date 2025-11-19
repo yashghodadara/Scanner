@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.scanner.R
 import com.example.scanner.databinding.ActivitySplashBinding
-import com.example.scanner.presentetion.SelectLanguageActivity
 import com.example.scanner.util.BaseActivity
 import com.example.scanner.util.Constants
 import com.example.scanner.util.PreferenceManager
@@ -94,8 +93,8 @@ class SplashActivity : BaseActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                0, // remove appearance flag
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // removes light icons → shows white icons
+                0,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility =

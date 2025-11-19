@@ -1,7 +1,6 @@
 package com.example.scanner.presentetion
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.scanner.R
 import com.example.scanner.data.Language
 import com.example.scanner.databinding.ActivitySelectLanguageBinding
-import com.example.scanner.presentetion.HomeActivity
 import com.example.scanner.util.BaseActivity
 import com.example.scanner.util.Constants
 import com.example.scanner.util.LocaleManager
@@ -228,8 +226,8 @@ class SelectLanguageActivity : BaseActivity(), View.OnClickListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                0, // remove appearance flag
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // removes light icons → shows white icons
+                0,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility =

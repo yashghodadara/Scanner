@@ -5,10 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
-import android.media.AudioManager
-import android.media.ToneGenerator
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -28,9 +25,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.scanner.R
+import com.example.scanner.data.QrAllHistoryDatabase
 import com.example.scanner.databinding.ActivityQrphoneEmailDetailsBinding
 import com.example.scanner.util.BaseActivity
 import com.example.scanner.util.CustomTypefaceSpan
+import androidx.core.net.toUri
 
 class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding : ActivityQrphoneEmailDetailsBinding
@@ -51,6 +50,20 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
         imageUri?.let {
             binding.ivCapturePhoto.setImageURI(Uri.parse(it))
         }
+
+        val db = QrAllHistoryDatabase(this)
+        val id = intent.getLongExtra("qr_history_id", -1L)
+
+        if (id != -1L) {
+            val item = db.getItemById(id)
+
+            if (item != null && item.isFavorite) {
+                binding.ivFavorites.setImageResource(R.drawable.ic_icon_yellow_star)
+            } else {
+                binding.ivFavorites.setImageResource(R.drawable.ic_icon_white_star)
+            }
+        }
+
         when (type) {
             "Email" -> {
                 val info = """
@@ -63,8 +76,8 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                 val titleColor = ContextCompat.getColor(this, R.color.txt_color_grey) // or any color you want
                 val valueColor = ContextCompat.getColor(this, R.color.white) // default text color
 
-                val titleTextSize = resources.getDimensionPixelSize(R.dimen.title_text_size) // e.g., 16sp
-                val valueTextSize = resources.getDimensionPixelSize(R.dimen.value_text_size) // e.g., 14sp
+                val titleTextSize = resources.getDimensionPixelSize(R.dimen.title_text_size)
+                val valueTextSize = resources.getDimensionPixelSize(R.dimen.value_text_size)
 
                 val titleTypeface = ResourcesCompat.getFont(this, R.font.inter_bold)
                 val valueTypeface = ResourcesCompat.getFont(this, R.font.inter_medium)
@@ -75,7 +88,6 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                 lines.forEach { line ->
                     val colonIndex = line.indexOf(":")
                     if (colonIndex > 0) {
-                        // Apply title styles (from start of line to colon)
                         spannableString.setSpan(
                             ForegroundColorSpan(titleColor),
                             currentPosition,
@@ -97,7 +109,6 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
 
-                        // Apply custom font family to title
                         if (titleTypeface != null) {
                             spannableString.setSpan(
                                 CustomTypefaceSpan(titleTypeface),
@@ -106,11 +117,9 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                             )
                         }
-
-                        // Apply value styles (from after colon to end of line)
                         spannableString.setSpan(
                             ForegroundColorSpan(valueColor),
-                            currentPosition + colonIndex + 1, // +1 to skip the colon itself
+                            currentPosition + colonIndex + 1,
                             currentPosition + line.length,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
@@ -122,7 +131,6 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
 
-                        // Apply custom font family to value
                         if (valueTypeface != null) {
                             spannableString.setSpan(
                                 CustomTypefaceSpan(valueTypeface),
@@ -132,7 +140,7 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                             )
                         }
                     }
-                    currentPosition += line.length + 1 // +1 for the newline character
+                    currentPosition += line.length + 1
                 }
                 binding.tvQrContent.text = spannableString
                 binding.tvType.text = getString(R.string.email)
@@ -168,6 +176,7 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
         binding.ivFAQ.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
         binding.tvFeedback.setOnClickListener(this)
+        binding.ivFavorites.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -180,7 +189,7 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                         binding.tvQrContent.text.toString()
                     }
                     val intent = Intent(Intent.ACTION_SENDTO).apply {
-                        data = Uri.parse("mailto:$email")
+                        data = "mailto:$email".toUri()
                         putExtra(Intent.EXTRA_SUBJECT, "QR Code Content")
                         putExtra(Intent.EXTRA_TEXT, binding.tvQrContent.text.toString())
                     }
@@ -193,7 +202,7 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                         binding.tvQrContent.text.toString()
                     }
                     val intent = Intent(Intent.ACTION_DIAL).apply {
-                        data = Uri.parse("tel:$phoneNumber")
+                        data = "tel:$phoneNumber".toUri()
                     }
                     startActivity(intent)
                 }
@@ -228,9 +237,39 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                 val intent = Intent(this, FeedbackActivity::class.java)
                 startActivity(intent)
             }
-        }
 
+            R.id.ivFavorites -> {
+                val historyDb = QrAllHistoryDatabase(this)
+                val historyId = intent.getLongExtra("qr_history_id", -1L)
+                if (historyId == -1L) {
+                    Toast.makeText(this, "Invalid history id", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                val currentItem = historyDb.getItemById(historyId)
+                val isFavoriteNow = currentItem?.isFavorite ?: false
+
+                if (isFavoriteNow) {
+                    if (historyDb.updateFavoriteStatus(historyId, false)) {
+                        binding.ivFavorites.setImageResource(R.drawable.ic_icon_white_star)
+                        Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Failed to update", Toast.LENGTH_SHORT).show()
+                    }
+                    return
+                }
+
+                if (historyDb.updateFavoriteStatus(historyId, true)) {
+                    binding.ivFavorites.setImageResource(R.drawable.ic_icon_yellow_star)
+                    Toast.makeText(this, "Added to Favorites", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Failed to update", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
+
+
     fun addContact(context: Context, name: String?, phone: String?, email: String?) {
         try {
             val intent = Intent(Intent.ACTION_INSERT).apply {
@@ -246,7 +285,6 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
                 phone?.let { putExtra(ContactsContract.Intents.Insert.PHONE, it) }
                 email?.let { putExtra(ContactsContract.Intents.Insert.EMAIL, it) }
             }
-
 
             try {
                 context.startActivity(intent)
@@ -304,7 +342,7 @@ class QRPhoneEmailDetailsActivity : BaseActivity(), View.OnClickListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                0, // remove appearance flag
+                0,
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // removes light icons → shows white icons
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

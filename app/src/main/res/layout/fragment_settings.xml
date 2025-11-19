@@ -8,12 +8,11 @@
     android:orientation="vertical"
     tools:context=".presentetion.SettingsFragment">
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvType"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
         android:fontFamily="@font/inter_bold"
         android:gravity="center_vertical"
         android:text="@string/settings"
@@ -95,7 +94,6 @@
 
                     </LinearLayout>
 
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
@@ -160,7 +158,7 @@
                             android:fontFamily="@font/inter_medium"
                             android:text="@string/google"
                             android:textColor="@color/txt_color_blue"
-                            android:textSize="@dimen/_10ssp" />
+                            android:textSize="@dimen/_12ssp" />
 
                         <ImageView
                             android:layout_width="@dimen/_12sdp"
@@ -202,7 +200,7 @@
                             android:fontFamily="@font/inter_medium"
                             android:text="@string/english"
                             android:textColor="@color/txt_color_blue"
-                            android:textSize="@dimen/_10ssp" />
+                            android:textSize="@dimen/_12ssp" />
 
                     </LinearLayout>
 
@@ -276,7 +274,6 @@
                             android:textColor="@color/txt_color_grey"
                             android:textSize="@dimen/_10ssp" />
 
-
                     </LinearLayout>
 
                     <View
@@ -338,7 +335,6 @@
                                 android:layout_height="@dimen/_18sdp"
                                 android:src="@drawable/ic_icon_yellow_star" />
 
-
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -379,7 +375,6 @@
                         android:textSize="@dimen/_14ssp"
                         android:textStyle="bold" />
 
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -409,6 +404,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

@@ -36,7 +36,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
     private var currentFragmentTag = ""
     private lateinit var pref: PreferenceManager
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -67,6 +66,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
                 binding.icScan.setImageResource(R.drawable.ic_icon_scan_unselected)
                 binding.tvScan.setTextColor(unselectedTextColor)
+
+                binding.icHistory.setImageResource(R.drawable.ic_icon_history_unselected)
+                binding.tvHistory.setTextColor(unselectedTextColor)
             }
 
             else -> {
@@ -76,17 +78,20 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
                 binding.ivSettings.setImageResource(R.drawable.ic_icon_settings_unselected)
                 binding.tvSettings.setTextColor(unselectedTextColor)
+
+                binding.icHistory.setImageResource(R.drawable.ic_icon_history_unselected)
+                binding.tvHistory.setTextColor(unselectedTextColor)
             }
         }
 
         binding.llScan.setOnClickListener(this)
         binding.llSettings.setOnClickListener(this)
+        binding.llHistory.setOnClickListener(this)
 
         onBackPressedDispatcher.addCallback(this) {
                 val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
                 if (fragment is ScanFragment) fragment.pauseScanning()
                 showExitDialog()
-
         }
     }
 
@@ -112,7 +117,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                 if (fragment is ScanFragment) fragment.resumeScanning()
             }
         }
-
         dialog.show()
     }
 
@@ -153,12 +157,29 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
 
                 binding.ivSettings.setImageResource(R.drawable.ic_icon_settings_unselected)
                 binding.tvSettings.setTextColor(unselectedTextColor)
+
+                binding.icHistory.setImageResource(R.drawable.ic_icon_history_unselected)
+                binding.tvHistory.setTextColor(unselectedTextColor)
             }
 
             R.id.llSettings -> {
                 loadFragment(SettingsFragment(), "SETTINGS")
                 binding.ivSettings.setImageResource(R.drawable.ic_icon_settings_selected)
                 binding.tvSettings.setTextColor(selectedTextColor)
+
+                binding.icScan.setImageResource(R.drawable.ic_icon_scan_unselected)
+                binding.tvScan.setTextColor(unselectedTextColor)
+
+                binding.icHistory.setImageResource(R.drawable.ic_icon_history_unselected)
+                binding.tvHistory.setTextColor(unselectedTextColor)
+            }
+            R.id.llHistory -> {
+                loadFragment(HistoryFragment(), "HISTORY")
+                binding.icHistory.setImageResource(R.drawable.ic_icon_history_selected)
+                binding.tvHistory.setTextColor(selectedTextColor)
+
+                binding.ivSettings.setImageResource(R.drawable.ic_icon_settings_unselected)
+                binding.tvSettings.setTextColor(unselectedTextColor)
 
                 binding.icScan.setImageResource(R.drawable.ic_icon_scan_unselected)
                 binding.tvScan.setTextColor(unselectedTextColor)
@@ -185,7 +206,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        // Then apply color spans for each highlight
         for (highlight in highlights) {
             var start = fullText.indexOf(highlight)
             while (start != -1) {
@@ -218,7 +238,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener {
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                 }
-
                 start = fullText.indexOf(highlight, start + highlight.length)
             }
         }

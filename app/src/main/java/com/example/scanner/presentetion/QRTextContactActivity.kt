@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
@@ -16,7 +15,6 @@ import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -27,10 +25,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.scanner.R
+import com.example.scanner.data.QrAllHistoryDatabase
 import com.example.scanner.databinding.ActivityQrtextContectBinding
 import com.example.scanner.util.BaseActivity
 import com.example.scanner.util.Constants
 import com.example.scanner.util.CustomTypefaceSpan
+import androidx.core.net.toUri
 
 class QRTextContactActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding : ActivityQrtextContectBinding
@@ -53,6 +53,19 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
             binding.ivCapturePhoto.setImageURI(Uri.parse(it))
         }
 
+        val db = QrAllHistoryDatabase(this)
+        val id = intent.getLongExtra("qr_history_id", -1L)
+
+        if (id != -1L) {
+            val item = db.getItemById(id)
+
+            if (item != null && item.isFavorite) {
+                binding.ivFavorites.setImageResource(R.drawable.ic_icon_yellow_star)
+            } else {
+                binding.ivFavorites.setImageResource(R.drawable.ic_icon_white_star)
+            }
+        }
+
         when (type) {
             "Contact" -> {
                 val info = """
@@ -68,8 +81,8 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                 val titleColor = ContextCompat.getColor(this, R.color.txt_color_grey) // or any color you want
                 val valueColor = ContextCompat.getColor(this, R.color.white) // default text color
 
-                val titleTextSize = resources.getDimensionPixelSize(R.dimen.title_text_size) // e.g., 16sp
-                val valueTextSize = resources.getDimensionPixelSize(R.dimen.value_text_size) // e.g., 14sp
+                val titleTextSize = resources.getDimensionPixelSize(R.dimen.title_text_size)
+                val valueTextSize = resources.getDimensionPixelSize(R.dimen.value_text_size)
 
                 val titleTypeface = ResourcesCompat.getFont(this, R.font.inter_bold)
                 val valueTypeface = ResourcesCompat.getFont(this, R.font.inter_medium)
@@ -80,7 +93,6 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                 lines.forEach { line ->
                     val colonIndex = line.indexOf(":")
                     if (colonIndex > 0) {
-                        // Apply title styles (from start of line to colon)
                         spannableString.setSpan(
                             ForegroundColorSpan(titleColor),
                             currentPosition,
@@ -102,7 +114,6 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
 
-                        // Apply custom font family to title
                         if (titleTypeface != null) {
                             spannableString.setSpan(
                                 CustomTypefaceSpan(titleTypeface),
@@ -112,10 +123,9 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                             )
                         }
 
-                        // Apply value styles (from after colon to end of line)
                         spannableString.setSpan(
                             ForegroundColorSpan(valueColor),
-                            currentPosition + colonIndex + 1, // +1 to skip the colon itself
+                            currentPosition + colonIndex + 1,
                             currentPosition + line.length,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
@@ -127,7 +137,6 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                         )
 
-                        // Apply custom font family to value
                         if (valueTypeface != null) {
                             spannableString.setSpan(
                                 CustomTypefaceSpan(valueTypeface),
@@ -137,7 +146,7 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                             )
                         }
                     }
-                    currentPosition += line.length + 1 // +1 for the newline character
+                    currentPosition += line.length + 1
                 }
                 binding.tvQrContent.text = spannableString
 
@@ -149,8 +158,6 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
 
                 binding.ivSmsContact.setImageResource(R.drawable.ic_icon_contact)
                 binding.tvSmsContact.text = getString(R.string.contact)
-
-
             }
             "Text" -> {
                 binding.tvQrContent.text = intent.getStringExtra("qr_text")
@@ -183,6 +190,7 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
         binding.ivFAQ.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
         binding.tvFeedback.setOnClickListener(this)
+        binding.ivFavorites.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -211,7 +219,7 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                 }else{
                     val intent = Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("sms:?body=${Uri.encode(binding.tvQrContent.text.toString())}")
+                        "sms:?body=${Uri.encode(binding.tvQrContent.text.toString())}".toUri()
                     )
                     startActivity(intent)
                 }
@@ -223,7 +231,7 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                     binding.tvQrContent.text.toString()
                 }
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:$email")
+                    data = "mailto:$email".toUri()
                     putExtra(Intent.EXTRA_SUBJECT, "QR Code Content")
                     putExtra(Intent.EXTRA_TEXT, binding.tvQrContent.text.toString())
                 }
@@ -242,18 +250,44 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                 }
                 startActivity(Intent.createChooser(intent, "Share QR Content"))
             }
-
             R.id.ivFAQ -> {
                 val intent = Intent(this, FAQActivity::class.java)
                 startActivity(intent)
             }
-
             R.id.ivBack ->{
                 finish()
             }
             R.id.tvFeedback -> {
                 val intent = Intent(this, FeedbackActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.ivFavorites -> {
+                val historyDb = QrAllHistoryDatabase(this)
+                val historyId = intent.getLongExtra("qr_history_id", -1L)
+                if (historyId == -1L) {
+                    Toast.makeText(this, "Invalid history id", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                val currentItem = historyDb.getItemById(historyId)
+                val isFavoriteNow = currentItem?.isFavorite ?: false
+
+                if (isFavoriteNow) {
+                    if (historyDb.updateFavoriteStatus(historyId, false)) {
+                        binding.ivFavorites.setImageResource(R.drawable.ic_icon_white_star)
+                        Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Failed to update", Toast.LENGTH_SHORT).show()
+                    }
+                    return
+                }
+
+                if (historyDb.updateFavoriteStatus(historyId, true)) {
+                    binding.ivFavorites.setImageResource(R.drawable.ic_icon_yellow_star)
+                    Toast.makeText(this, "Added to Favorites", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Failed to update", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -267,13 +301,11 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
                 email?.let { putExtra(ContactsContract.Intents.Insert.EMAIL, it) }
             }
 
-
             val altIntent = Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI).apply {
                 name?.let { putExtra(ContactsContract.Intents.Insert.NAME, it) }
                 phone?.let { putExtra(ContactsContract.Intents.Insert.PHONE, it) }
                 email?.let { putExtra(ContactsContract.Intents.Insert.EMAIL, it) }
             }
-
 
             try {
                 context.startActivity(intent)
@@ -331,7 +363,7 @@ class QRTextContactActivity : BaseActivity(), View.OnClickListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                0, // remove appearance flag
+                0,
                 WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // removes light icons → shows white icons
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

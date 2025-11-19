@@ -167,7 +167,6 @@ class FAQActivity : BaseActivity(), View.OnClickListener {
                 start = fullText.indexOf(highlight, start + highlight.length)
             }
         }
-
         return spannable
     }
 

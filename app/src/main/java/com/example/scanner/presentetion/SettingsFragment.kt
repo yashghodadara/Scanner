@@ -24,6 +24,7 @@ import com.example.scanner.databinding.FragmentSettingsBinding
 import com.example.scanner.util.Constants
 import com.example.scanner.util.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.core.content.edit
 
 class SettingsFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentSettingsBinding
@@ -44,7 +45,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         binding.switchClipboard.isChecked = isCopyEnabled
 
         binding.switchBeep.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean("isBeep", isChecked).apply()
+            prefs.edit { putBoolean("isBeep", isChecked) }
         }
         binding.switchClipboard.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("isCopy", isChecked).apply()
@@ -187,7 +188,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         stars[i].setImageResource(R.drawable.ic_icon_grey_star)
                         stars[i].clearAnimation()
                     }
-                    // Start continuous blinking only for star 5
                     val continuousBlink = AlphaAnimation(0.3f, 1.0f)
                     continuousBlink.duration = 1000
                     continuousBlink.repeatCount = Animation.INFINITE
@@ -196,7 +196,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     stars[4].setImageResource(R.drawable.ic_icon_yellow_star)
                     stars[4].startAnimation(continuousBlink)
 
-                    // Set initial state for 0 rating
                     binding.imgEmoji.setImageResource(emojiImages[0])
                     binding.tvTitle.text = ratingTexts[0]
                     binding.tvSubtitle.text = ratingSubtitles[0]
@@ -206,14 +205,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 blinkAnimation.duration = 100
                 blinkAnimation.repeatCount = 1
                 blinkAnimation.repeatMode = Animation.REVERSE
-                // Set current star to yellow and animate it
+
                 stars[index].setImageResource(R.drawable.ic_icon_yellow_star)
                 stars[index].startAnimation(blinkAnimation)
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     val rippleDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ripple_yellow)
                     stars[index].background = rippleDrawable
-                    // Trigger ripple
+
                     stars[index].isPressed = true
                     stars[index].postDelayed({
                         stars[index].isPressed = false
@@ -228,12 +227,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             stars[index].background = null
                         }, 100)
 
-                        // After blink ends, reset this star to grey (except for the last star)
                         if (index < stars.size - 1) {
                             stars[index].setImageResource(R.drawable.ic_icon_yellow_star)
                         }
 
-                        // Move to next star with a small delay
                         stars[index].postDelayed({
                             animateStarsSequentially(index + 1)
                         }, 100)
@@ -273,14 +270,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
             binding.topBar.visibility = if (rating >= 1) View.GONE else View.VISIBLE
 
-            // Button UI
             binding.btnSubmit.isEnabled = rating >= 1
             binding.btnSubmit.backgroundTintList = ContextCompat.getColorStateList(
                 requireContext(),
                 if (rating >= 1) R.color.txt_color_blue else R.color.txt_color_grey
             )
         }
-
 
         for (i in stars.indices) {
             stars[i].setOnClickListener {
@@ -290,14 +285,13 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             }
         }
 
-
         binding.btnSubmit.setOnClickListener {
             if (selectedRating >= 3) {
                 val appPackageName = requireContext().packageName
                 try {
                     val intent = Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$appPackageName")
+                        "market://details?id=$appPackageName".toUri()
                     )
                     intent.setPackage("com.android.vending")
                     startActivity(intent)
@@ -329,8 +323,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
         dialog.show()
     }
-
-
     private fun showSearchEngineDialog() {
         val searchEngines = arrayOf(
             getString(R.string.google),
@@ -363,7 +355,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
         dialog.show()
 
-        // Set dialog window size and animation
         dialog.window?.setLayout(
             (resources.displayMetrics.widthPixels * 0.9).toInt(),
             ViewGroup.LayoutParams.WRAP_CONTENT

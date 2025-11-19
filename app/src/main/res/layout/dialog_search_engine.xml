@@ -6,7 +6,6 @@
     android:background="@drawable/bg_dialog"
     android:padding="@dimen/_16sdp">
 
-
     <ImageButton
         android:id="@+id/buttonClose"
         android:layout_width="@dimen/_26sdp"
@@ -14,7 +13,6 @@
         android:layout_gravity="end|center"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_icon_close" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearch"

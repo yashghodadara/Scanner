@@ -17,7 +17,6 @@
         android:padding="10dp"
         android:paddingTop="40dp">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -29,7 +28,6 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/_16ssp" />
 
-        <!-- Subtitle -->
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
@@ -63,23 +61,23 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/ivStar1"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:padding="18dp"
-                        android:src="@drawable/ic_icon_grey_star" />
+                        <ImageView
+                            android:id="@+id/ivStar1"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_icon_grey_star" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:gravity="center">
 
                         <ImageView
                             android:id="@+id/ivStar2"
@@ -93,45 +91,45 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/ivStar3"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:padding="18dp"
-                        android:src="@drawable/ic_icon_grey_star" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/ivStar4"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:padding="18dp"
-                        android:src="@drawable/ic_icon_grey_star" />
+                        <ImageView
+                            android:id="@+id/ivStar3"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_icon_grey_star" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/ivStar5"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:padding="18dp"
-                        android:src="@drawable/ic_icon_star" />
+                        <ImageView
+                            android:id="@+id/ivStar4"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_icon_grey_star" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/ivStar5"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_icon_star" />
 
                     </LinearLayout>
 
@@ -147,20 +145,20 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/the_best_we_can_get"
-                        android:textColor="#FFB01F"
-                        android:textAlignment="textEnd"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:text="@string/the_best_we_can_get"
+                        android:textAlignment="textEnd"
+                        android:textColor="#FFB01F"
                         tools:ignore="RtlCompat" />
 
                     <ImageView
                         android:id="@+id/btnMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_marginEnd="@dimen/_14sdp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/_14sdp"
+                        android:padding="8dp"
                         android:src="@drawable/ic_icon_yellow_arrow" />
                 </LinearLayout>
 
@@ -182,7 +180,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
-            app:backgroundTint="@color/txt_color_grey"/>
+            app:backgroundTint="@color/txt_color_grey" />
     </LinearLayout>
 
     <ImageView

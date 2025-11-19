@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Scanner">
         <activity
+            android:name=".presentetion.FavoriteHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentetion.WebSearchActivity"
             android:exported="false" />
 

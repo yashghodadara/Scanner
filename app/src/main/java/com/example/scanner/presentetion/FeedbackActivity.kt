@@ -33,7 +33,6 @@ class FeedbackActivity : BaseActivity(), View.OnClickListener {
     private val selectedImages = mutableListOf<Uri>()
     private lateinit var imageAdapter: FeedbackAdapter
     private var imageUri: Uri? = null
-
     companion object {
         private const val REQUEST_IMAGE_PICK = 1001
         private const val REQUEST_IMAGE_CAPTURE = 1002

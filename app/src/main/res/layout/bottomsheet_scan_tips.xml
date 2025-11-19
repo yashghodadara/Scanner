@@ -3,50 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottomsheet_rounded"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@drawable/bg_bottomsheet_rounded">
+    android:padding="20dp">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
         android:text="@string/point_your_camera_at_the_code_to_auto_scan"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20ssp"
-        android:fontFamily="@font/inter_bold"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center" />
+        android:textSize="@dimen/_20ssp" />
 
-    <!-- Sub instructions -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/_14sdp"
-        android:layout_gravity="center_horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_regular"
             android:text="@string/_1_avoid_light_reflection_or_shadow_on_the_code"
             android:textColor="@color/txt_color_grey"
-            android:fontFamily="@font/inter_regular"
-            android:textSize="@dimen/_11ssp"/>
+            android:textSize="@dimen/_11ssp" />
 
         <TextView
             android:id="@+id/txtTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/inter_regular"
             android:text="@string/_2_make_your_phone_face_the_code_without_tilting"
             android:textColor="@color/txt_color_grey"
-            android:textSize="@dimen/_11ssp"
-            android:fontFamily="@font/inter_regular"
-            android:layout_marginTop="@dimen/_10sdp"/>
+            android:textSize="@dimen/_11ssp" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,12 +111,10 @@
         android:id="@+id/btnOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/flDp"
         android:layout_marginHorizontal="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:background="@drawable/bg_submit_button"
         android:fontFamily="@font/inter_bold"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
         android:text="@string/ok"

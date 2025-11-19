@@ -111,23 +111,23 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:background="@color/txt_color_grey"
+            android:layout_marginHorizontal="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginHorizontal="@dimen/_14sdp"/>
+            android:background="@color/txt_color_grey" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/please_tell_us_more_details_so_that_we_can_locate_and_solve_your_problem_faster_at_least_6_characters"
-            android:gravity="top|start"
-            android:textColorHint="@color/txt_color_grey"
             android:layout_marginHorizontal="@dimen/_14sdp"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
+            android:layout_marginBottom="16dp"
             android:background="@null"
             android:fontFamily="@font/inter_regular"
-            android:layout_marginBottom="16dp"/>
+            android:gravity="top|start"
+            android:hint="@string/please_tell_us_more_details_so_that_we_can_locate_and_solve_your_problem_faster_at_least_6_characters"
+            android:padding="12dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/txt_color_grey" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvImages"
@@ -136,29 +136,26 @@
             android:layout_marginHorizontal="@dimen/_14sdp"
             android:orientation="horizontal" />
 
-
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/btnCamera"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/bg_problem_button"
         android:layout_above="@+id/btnSubmit"
-        android:src="@drawable/ic_icon_cemara"
-        android:layout_margin="@dimen/_14sdp"/>
-
+        android:layout_margin="@dimen/_14sdp"
+        android:background="@drawable/bg_problem_button"
+        android:src="@drawable/ic_icon_cemara" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/flDp"
+        android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_16sdp"
         android:background="@drawable/bg_submit_button"
         android:fontFamily="@font/inter_bold"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
         android:text="@string/submit"
@@ -166,6 +163,5 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         app:backgroundTint="@color/txt_color_grey" />
-
 
 </RelativeLayout>

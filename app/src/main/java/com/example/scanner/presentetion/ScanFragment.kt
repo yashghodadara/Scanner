@@ -1,21 +1,17 @@
 package com.example.scanner.presentetion
 
 import android.Manifest
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ScaleGestureDetector
 import android.view.Surface
@@ -48,12 +44,10 @@ import java.util.concurrent.Executors
 import android.media.AudioManager
 import android.media.ToneGenerator
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
-import androidx.core.animation.doOnEnd
 import androidx.core.graphics.toColorInt
-
-
+import com.example.scanner.data.QrAllHistoryDatabase
+import org.json.JSONObject
 class ScanFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentScanBinding
     private var cameraProvider: ProcessCameraProvider? = null
@@ -63,7 +57,6 @@ class ScanFragment : Fragment(), View.OnClickListener {
     private var torchEnabled = false
     private var isScanning = false
     private lateinit var cameraExecutor: ExecutorService
-
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -129,35 +122,30 @@ class ScanFragment : Fragment(), View.OnClickListener {
         val gradientDrawable = GradientDrawable()
         scanLine.background = gradientDrawable
 
+        val duration = 2000L
 
-        val DURATION = 2000L
-
-        // TOP → BOTTOM
         val topToBottom = TranslateAnimation(
             Animation.RELATIVE_TO_PARENT, 0f,
             Animation.RELATIVE_TO_PARENT, 0f,
             Animation.RELATIVE_TO_PARENT, -1f,
             Animation.RELATIVE_TO_PARENT, 1f
         ).apply {
-            duration = DURATION
+            this.duration = duration
             fillAfter = true
         }
 
-        // BOTTOM → TOP
         val bottomToTop = TranslateAnimation(
             Animation.RELATIVE_TO_PARENT, 0f,
             Animation.RELATIVE_TO_PARENT, 0f,
             Animation.RELATIVE_TO_PARENT, 1f,
             Animation.RELATIVE_TO_PARENT, -1f
         ).apply {
-            duration = DURATION
+            this.duration = duration
             fillAfter = true
         }
 
-        // LISTENERS
         topToBottom.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
-
                 gradientDrawable.colors = intArrayOf(bottomColor, topColor)
             }
 
@@ -170,9 +158,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
 
         bottomToTop.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
-                gradientDrawable.colors =
-                    intArrayOf(topColor, bottomColor)
-
+                gradientDrawable.colors = intArrayOf(topColor, bottomColor)
             }
 
             override fun onAnimationEnd(animation: Animation?) {
@@ -182,18 +168,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
             override fun onAnimationRepeat(animation: Animation?) {}
         })
 
-        // START FIRST ANIMATION
         scanLine.startAnimation(topToBottom)
-    }
-
-
-    private fun blendColor(from: Int, to: Int, ratio: Float): Int {
-        val inv = 1f - ratio
-        val r = (Color.red(from) * inv + Color.red(to) * ratio).toInt()
-        val g = (Color.green(from) * inv + Color.green(to) * ratio).toInt()
-        val b = (Color.blue(from) * inv + Color.blue(to) * ratio).toInt()
-        val a = (Color.alpha(from) * inv + Color.alpha(to) * ratio).toInt()
-        return Color.argb(a, r, g, b)
     }
 
 
@@ -228,8 +203,6 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 it.setSurfaceProvider(binding.previewView.surfaceProvider)
             }
 
-
-
         imageAnalyzer?.clearAnalyzer()
         imageAnalyzer = ImageAnalysis.Builder()
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
@@ -251,8 +224,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
             provider.unbindAll()
             camera = provider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer)
             camera?.cameraControl?.enableTorch(torchEnabled)
-        } catch (exc: Exception) {
-            Log.e("QrScanner", "Use case binding failed", exc)
+        } catch (_: Exception) {
         }
     }
 
@@ -320,13 +292,56 @@ class ScanFragment : Fragment(), View.OnClickListener {
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 
+    private fun buildHistoryValue(details: Map<String, String>): String {
+        return when (details["type"]) {
+
+            "URL" -> "URL: ${details["url"]}"
+
+            "Email" -> "Email To: ${details["address"]}\nSubject: ${details["subject"]}\nBody: ${details["body"]}"
+
+            "Phone" -> "Phone: ${details["number"]}"
+
+            "Contact" -> """
+            Name: ${details["name"]}
+            Organization: ${details["organization"]}
+            Title: ${details["title"]}
+            Address: ${details["address"]}
+            Phone: ${details["phone"]}
+            Email: ${details["email"]}
+        """.trimIndent()
+
+            "Text" -> "Text: ${details["text"]}"
+
+            "WiFi" -> """
+            SSID: ${details["ssid"]}
+            Password: ${details["password"]}
+            Encryption: ${details["encryptionType"]}
+        """.trimIndent()
+
+            else -> details["rawValue"] ?: "Unknown Data"
+        }
+    }
+
     private fun navigateToResult(details: Map<String, String>, imageUri: String?) {
+
+        val db = QrAllHistoryDatabase(requireContext())
+
+        val historyValue = buildHistoryValue(details)
+
+        val insertedId = db.insertQrValue(
+            historyValue,
+            details["type"] ?: "Unknown",
+            imageUri ?: "",
+            JSONObject(details).toString()
+        )
+
         when (details["type"]) {
             "URL" -> {
                 val intent = Intent(requireActivity(), QRUrlDetailsActivity::class.java)
                 intent.putExtra("qr_url", details["url"])
                 intent.putExtra("qr_type", details["type"])
                 intent.putExtra("qr_image", imageUri)
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -337,6 +352,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_email_to", details["address"])
                 intent.putExtra("qr_subject", details["subject"])
                 intent.putExtra("qr_body", details["body"])
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -345,6 +361,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_type", details["type"])
                 intent.putExtra("qr_image", imageUri)
                 intent.putExtra("qr_number", details["number"])
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -358,6 +375,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_address", details["address"])
                 intent.putExtra("qr_phone", details["phone"])
                 intent.putExtra("qr_email", details["email"])
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -366,6 +384,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_text", details["text"])
                 intent.putExtra("qr_type", details["type"])
                 intent.putExtra("qr_image", imageUri)
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -376,6 +395,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_ssid", details["ssid"])
                 intent.putExtra("qr_password", details["password"])
                 intent.putExtra("qr_encryptionType", details["encryptionType"])
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
 
@@ -384,6 +404,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 intent.putExtra("qr_raw", details["rawValue"])
                 intent.putExtra("qr_type", details["type"])
                 intent.putExtra("qr_image", imageUri)
+                intent.putExtra("qr_history_id", insertedId)
                 startActivity(intent)
             }
         }
@@ -481,7 +502,6 @@ class ScanFragment : Fragment(), View.OnClickListener {
                     }
                 }
             }
-
             else -> {
                 details["type"] = "Unknown"
                 details["rawValue"] = barcode.rawValue ?: ""
@@ -497,16 +517,7 @@ class ScanFragment : Fragment(), View.OnClickListener {
         else
             ContextCompat.getColor(context, R.color.white)
 
-        val textColor = if (isOn)
-            ContextCompat.getColor(context, R.color.txt_color_blue)
-        else
-            ContextCompat.getColor(context, R.color.white)
-
-        // Update icon tint
         binding.btnFlashlight.setColorFilter(iconColor)
-
-        // Update text color
-        binding.tvFlashlight.setTextColor(textColor)
     }
 
     override fun onDestroy() {

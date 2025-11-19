@@ -2,23 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context=".presentetion.HomeActivity">
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/rlBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_bottom_nav"
-        android:layout_margin="@dimen/_14sdp">
+        android:layout_margin="@dimen/_14sdp"
+        android:background="@drawable/bg_bottom_nav">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,69 +27,102 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/llScan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="@dimen/_10sdp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:id="@+id/icScan"
-                android:layout_width="@dimen/_22sdp"
-                android:layout_height="@dimen/_22sdp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_icon_scan_unselected"/>
-
-            <TextView
-                android:id="@+id/tvScan"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llScan"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/scan"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:textSize="@dimen/_12sdp"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:singleLine="true"
-                android:textColor="@color/txt_color_grey"
-                android:fontFamily="@font/inter_semi_bold"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/icScan"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_icon_scan_unselected" />
 
-        <LinearLayout
-            android:id="@+id/llSettings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="@dimen/_10sdp"
-            android:clickable="true"
-            android:focusable="true">
+                <TextView
+                    android:id="@+id/tvScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:singleLine="true"
+                    android:text="@string/scan"
+                    android:textAlignment="center"
+                    android:textColor="@color/txt_color_grey"
+                    android:textSize="@dimen/_12sdp" />
 
-            <ImageView
-                android:id="@+id/ivSettings"
-                android:layout_width="@dimen/_22sdp"
-                android:layout_height="@dimen/_22sdp"
-                android:src="@drawable/ic_icon_settings_unselected" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvSettings"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llHistory"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/settings"
-                android:textColor="@color/txt_color_grey"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:textSize="@dimen/_12sdp"
-                android:textAlignment="center"
-                android:singleLine="true"
-                android:fontFamily="@font/inter_semi_bold"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/icHistory"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_icon_history_unselected" />
+
+                <TextView
+                    android:id="@+id/tvHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:singleLine="true"
+                    android:text="@string/history"
+                    android:textAlignment="center"
+                    android:textColor="@color/txt_color_grey"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llSettings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/ivSettings"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:src="@drawable/ic_icon_settings_unselected" />
+
+                <TextView
+                    android:id="@+id/tvSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:singleLine="true"
+                    android:text="@string/settings"
+                    android:textAlignment="center"
+                    android:textColor="@color/txt_color_grey"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>

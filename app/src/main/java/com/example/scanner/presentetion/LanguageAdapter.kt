@@ -18,7 +18,7 @@ class LanguageAdapter(
     private var selectedCode: String,
     private val onSelect: (Language) -> Unit
 ) : RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {
-    inner class LanguageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class LanguageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: MaterialTextView = itemView.findViewById(R.id.tvLanguageName)
         val tvEnglishName: MaterialTextView = itemView.findViewById(R.id.tvLanguageEnglishName)
         val imgFlag: AppCompatImageView = itemView.findViewById(R.id.imgFlag)
@@ -55,6 +55,5 @@ class LanguageAdapter(
             notifyItemChanged(position)
         }
     }
-
     override fun getItemCount() = languagesList.size
 }

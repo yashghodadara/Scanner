@@ -1,5 +1,6 @@
 package com.example.scanner.presentetion
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
@@ -7,7 +8,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.MenuInflater
@@ -157,6 +157,7 @@ class WebSearchActivity : BaseActivity(), View.OnClickListener {
         binding.webView.loadUrl(url)
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun showPopupMenu(anchor: View) {
         val popup = PopupMenu(ContextThemeWrapper(this, R.style.CustomPopupMenu), anchor, Gravity.END, 0, R.style.CustomPopupMenu)
         val inflater: MenuInflater = popup.menuInflater
@@ -238,8 +239,8 @@ class WebSearchActivity : BaseActivity(), View.OnClickListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
-                0, // remove appearance flag
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS // removes light icons → shows white icons
+                0,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility =
